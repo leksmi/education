@@ -1,0 +1,4 @@
+# Third text test file.
+
+add some string
+add some more string
