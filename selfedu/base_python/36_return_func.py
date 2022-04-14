@@ -1,10 +1,10 @@
 #
-def get_sqrt(x):
+def get_sqrt(x: int) -> int:
     res = None if x < 0 else x ** 0.5
     return res, x
 
 
-def get_max2(a, b):
+def get_max2(a: int, b: int) -> int:
     print('get_max2 is working ..')
     return a if a > b else b
 
