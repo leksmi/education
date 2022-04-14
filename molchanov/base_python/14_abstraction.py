@@ -39,6 +39,7 @@ def print_to_file(text):
 
 
 print_to_file('test text')
+print_to_file('New text')
 
 
 
