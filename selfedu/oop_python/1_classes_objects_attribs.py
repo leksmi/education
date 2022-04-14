@@ -24,8 +24,6 @@ class Point:  # Класс образует пространство имен (s
     color = 'red'  # атрибут
     circle = 2  # атрибут
 
-    def set_coords():
-        print('It is the set_coords method ..')
 
 
 # Выполнение текущего модуля:
