@@ -19,25 +19,25 @@ class Point:  # Класс образует пространство имен (s
         return 0
 
     def get_coords(self):
-        return self.x, self.y # вернет кортеж
+        return self.x, self.y  # вернет кортеж
 
 
 print(f'set_coords это есть: {Point.set_coords}')
-# print(f'Возврат от set_coords :\n{Point.set_ccords()}')
+# print(f'Возврат от set_coords :\n{Point.set_coords()}')
 
 pt = Point()
 pt.set_coords()
 print(pt.__dict__)
 
-pt.set_coords(11,12)
+pt.set_coords(11, 12)
 print(pt.__dict__)
 print(pt.get_coords())
 
 pt2 = Point()
-pt2.set_coords(21,22)
+pt2.set_coords(21, 22)
 print(pt2.__dict__)
 print(pt2.get_coords())
 
 # так как имена методов это атрибуты Класса
 f = getattr(pt, 'get_coords')  # в f присваиваем атрибут (делаем доп.ссылку)
-print(f())                     # вызываем атрибут
+print(f())  # вызываем атрибут
