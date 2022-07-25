@@ -1,2 +1,2 @@
 # education
-For different courses with YouTube
+For different python courses
