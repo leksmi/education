@@ -16,7 +16,8 @@ class NewCar:
 
 
 car = Car()
-car.drive()
+Car.drive()
+getattr(Car, 'drive')()
 
 new_car = NewCar()
-new_car.drive() # сработает за счет декоратора @staticmethod
+new_car.drive()  # сработает за счет декоратора @staticmethod
