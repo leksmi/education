@@ -1,6 +1,6 @@
 import time
 import telnetlib
-from getpass import
+from getpass import getpass
 
 
 class BaseTelnet:
