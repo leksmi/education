@@ -13,6 +13,10 @@ class SomeDemo:
 
 
 class Banknote:
+    """
+    Создание банкнот
+    """
+
     def __init__(self, value: int):
         self.value = value
 
@@ -89,6 +93,55 @@ class Banknote:
             return self.value >= other.value
 
 
+class Wallet:
+    """
+    Создание кошелька
+    """
+
+    def __init__(self, *banknotes: Banknote):
+        self.container = []
+        self.container.extend(banknotes)
+
+    def __repr__(self):
+        return f'{self.__class__.__name__}({self.container})'
+
+    def __str__(self):
+        return f'Кошелек {self.__class__.__name__}'
+
+    def __contains__(self, item) -> bool:
+        """
+        Реализхация оператора "in"
+        :param item: Banknote
+        :return: bool
+        """
+        return item in self.container
+
+    def __bool__(self) -> bool:
+        """
+        По умолчанию объект самописного класса всегда вернет True
+        Для корректной работы нужно реализовать __bool__()
+        :return:
+        """
+        return len(self.container) > 0
+
+    def __len__(self) -> int:
+        """
+        Если нет этого метода, падает исключение о невозможности вызова len()
+        :return:
+        """
+        return len(self.container)
+
+    def __call__(self, *args, **kwargs) -> int:
+        """
+        Делает экземпляр вызываемым ()
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        summary = sum(bn.value for bn in self.container)
+        return summary
+
+
 if __name__ == '__main__':
     bn10 = Banknote(10)
     bn50 = Banknote(50)
@@ -103,4 +156,19 @@ if __name__ == '__main__':
     print(bn50 > bn100)  # требует методы __lt__, __gt__, __le__, __ge__
     ed100 = SomeDemo(100)
     print(ed100)
-    print(bn100 >= ed100)  # TypeError: Data type error
+    # print(bn100 >= ed100)  # TypeError: Data type error
+    wallet = Wallet(bn10, bn50, bn100)
+    print(wallet)
+    print(bn10 in wallet)
+    bn1000 = Banknote(1000)
+    print(bn1000 in wallet)
+    wallet_empty = Wallet()
+    if wallet:
+        print('В кошельке есть купюры, ура')
+    if wallet_empty:
+        print('В пустом кошельке есть купюры, ура')
+    else:
+        print('В пустом кошельке нет купюр :(')
+    print(f'Количество купюр в кошельке:', len(wallet))
+    print(f'Результат вызова кошелька: {wallet()}')
+
