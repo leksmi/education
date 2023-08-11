@@ -2,7 +2,20 @@ from datetime import datetime
 
 
 def timeit(func):
+    """
+    Функция - декоратор
+    :param func:  декорируемая функция
+    :return:
+    """
+
     def wrapper(*args, **kwargs):
+        """
+        Блок кода, в котором декоратор выполняет свои действия,
+        и возвращает результат работы декорируемой функции
+        :param args:
+        :param kwargs:
+        :return:
+        """
         start = datetime.now()
         result = func(*args, **kwargs)  # запуск декорируемой функции
         print(f'\nВремя выполнения для {func} {datetime.now() - start}\n')
@@ -12,7 +25,7 @@ def timeit(func):
 
 
 # @timeit
-def one(n):
+def list_one(n):
     l: list = []
     for i in range(10 ** n):
         if not i % 2:
@@ -21,19 +34,16 @@ def one(n):
 
 
 # @timeit
-def two(n):
+def list_two(n):
     l = [i for i in range(10 ** n) if not i % 2]
     return l
 
 
-# l1 = one(8)
-# l2 = two(8)
+one_1 = timeit(list_one)(7)
 
-# print(l1)
-# print(l2)
 
-l1 = timeit(one)
-l1 = timeit(one)(8)
+# timeit принимает аргументом list_one,
+# возвращает wrapper, который вызывается с аргументом 7
 
 
 # в результате вернет wrapper который в свою очередь вызывается с аргументом 8
@@ -58,7 +68,12 @@ def timeit(arg):
 
 
 @timeit
-def one(n):
+def one(n: int) -> list:
+    """
+    Создает список в цикле
+    :param n:
+    :return:
+    """
     l: list = []
     for i in range(10 ** n):
         if not i % 2:
@@ -67,7 +82,12 @@ def one(n):
 
 
 @timeit
-def two(n):
+def two(n: int) -> list:
+    """
+    Создает список через list comprehension
+    :param n:
+    :return:
+    """
     l = [i for i in range(10 ** n) if not i % 2]
     return l
 
