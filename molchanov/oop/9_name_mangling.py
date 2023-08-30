@@ -1,5 +1,6 @@
 import pytz
 from datetime import datetime
+from rich import print, inspect
 
 RED = '\033[1;31m'
 WHITE = '\033[00m'
@@ -10,12 +11,17 @@ class Account:
     """
     - нужно скрыть возможность напрямую править некоторые поля,
     - например счет.
-    -
+    - использование переменных вида self.__variable приводит к генерации name mangling:
+    - вида _ClassName__variable, который выполняется при компиляции кода.
+    - Именно с этой переменной будут работать все методы Класса.
+    - за счет этого не получится сделать подмену переменной в экземпляре Класса через
+    - объявление двойника вида __variable
 
     """
-    def __init__(self, name, balance: int):
+
+    def __init__(self, name: str, balance: int):
         self.name = name
-        self.__balance = balance
+        self.__balance = balance  # произойдет создание _Account__balance
         self.history = []  # история операция
 
     @staticmethod
@@ -72,3 +78,14 @@ class Account:
                 transaction = 'Withdrawn'
                 color = RED
             print(f'{color} {amount} {WHITE}\t{transaction} on {date.astimezone()}')
+
+
+acc1 = Account('Safronov', 10)
+print(inspect(acc1))
+print(dir(acc1))
+print(acc1.__dict__)
+print(acc1.show_balance())
+acc1.__balance = 1000000000  # переменная создается после создания экземпляра асс1
+print(acc1.__dict__)
+print(acc1.show_balance())
+print(f"{acc1.__dict__['_Account__balance']=}\n{acc1.__dict__['__balance']=}")
