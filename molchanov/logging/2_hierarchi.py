@@ -1,7 +1,9 @@
 # Если при создании логгера не передать аргумент - имя, создается  RootLogger.
 # Так как реализовано через Singleton, всегда есть единственный RootLogger
 # logger можно создать через точку от корневого
-# Propagation - распространение лог записей по иерархии
+# Propagation - распространение лог записей по иерархии, при этом проверка уровня
+# выполняется у логгера, для которого генерируется logrecord obj.
+# За счет этого при работе propagation можно использовать хендлеры родительских логгеров.
 
 import logging
 from rich import print, inspect
@@ -12,13 +14,13 @@ print(f"{logger=}")
 
 # Именованный логгер, наследуется от root:
 app_logger = logging.getLogger(name="app_logger")
-print(f"{app_logger=}")
+print(f"\n{app_logger=}")
 print(f"{app_logger.parent=}")  # покажет наследование от RootLogger
 
 # создание через точку с наследование:
 utils_logger = logging.getLogger("app_logger.utils")
-print(f"{utils_logger=}")
-print(f"{utils_logger.parent=}")
+print(f"\n{utils_logger=}")
+print(f"{utils_logger.parent=}\n")
 
 # Меняем уровень логирования по иерархии:
 # utils_logger.setLevel('DEBUG')
