@@ -1,5 +1,5 @@
 import logging.config
-from logsettings import logger_config
+from logsettings_3 import logger_config 
 from rich import print, inspect
 
 
